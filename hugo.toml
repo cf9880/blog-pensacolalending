@@ -1,0 +1,25 @@
+# To switch to the custom domain: change baseURL to "https://blog.pensacolalending.com/" and add static/CNAME containing "blog.pensacolalending.com"
+baseURL = "https://cf9880.github.io/blog-pensacolalending/"
+languageCode = "en-us"
+title = "Pensacola Lending Blog"
+enableRobotsTXT = true
+[outputs]
+  home = ["HTML", "RSS"]
+[sitemap]
+  changefreq = "weekly"
+[params]
+  description = "Pensacola home buying and mortgage insights: Conventional, FHA, VA, USDA, Jumbo and HELOC loans in Northwest Florida."
+  brand = "Coastal Funding Corporation — Pensacola"
+  tagline = "We Make Mortgages Simple..."
+  phone = "(850) 725-6500"
+  nmls = "103035"
+  email = "info@cfcmtg.com"
+  mainsite = "https://www.pensacolalending.com/"
+  maindomain = "www.pensacolalending.com"
+  city = "Pensacola"
+  region = "FL"
+  street = "534 S Navy Blvd"
+  area = "Pensacola & Northwest Florida"
+  bg = "#010024"
+  accent = "#3b82f6"
+  accent2 = "#ffffff"

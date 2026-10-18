@@ -1,0 +1,2 @@
+{{ define "main" }}<article><h1>{{ .Title }}</h1><div class="meta">{{ .Date.Format "January 2, 2006" }}{{ with .Params.author }} &middot; {{ . }}{{ end }}</div>{{ .Content }}
+<p><a class="cta" href="{{ site.Params.mainsite }}">Ready to talk? Visit {{ site.Params.maindomain }}</a></p></article>{{ end }}

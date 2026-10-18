@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+{{ $title := cond .IsHome (printf "%s | %s" site.Title site.Params.tagline) (printf "%s | %s" .Title site.Title) }}
+{{ $desc := cond .IsHome site.Params.description (default site.Params.description (.Description | default .Summary | plainify)) }}
+<title>{{ $title }}</title>
+<meta name="description" content="{{ $desc | truncate 160 }}">
+<link rel="canonical" href="{{ .Permalink }}">
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+<meta property="og:title" content="{{ $title }}"><meta property="og:description" content="{{ $desc | truncate 200 }}">
+<meta property="og:url" content="{{ .Permalink }}"><meta property="og:site_name" content="{{ site.Title }}">
+{{ with .Params.image }}<meta property="og:image" content="{{ . | absURL }}">{{ end }}
+<meta name="twitter:card" content="summary_large_image">
+{{ with .OutputFormats.Get "rss" }}<link rel="alternate" type="application/rss+xml" href="{{ .Permalink }}" title="{{ site.Title }}">{{ end }}
+<script type="application/ld+json">{{ dict "@context" "https://schema.org" "@type" (slice "MortgageBroker" "LocalBusiness") "name" site.Params.brand "url" site.Params.mainsite "telephone" site.Params.phone "email" site.Params.email "slogan" site.Params.tagline "areaServed" site.Params.area "identifier" (printf "NMLS %s" site.Params.nmls) "address" (dict "@type" "PostalAddress" "streetAddress" site.Params.street "addressLocality" site.Params.city "addressRegion" site.Params.region "addressCountry" "US") | jsonify | safeJS }}</script>
+{{ if .IsPage }}<script type="application/ld+json">{{ dict "@context" "https://schema.org" "@type" "BlogPosting" "headline" .Title "datePublished" (.Date.Format "2006-01-02") "dateModified" (.Lastmod.Format "2006-01-02") "author" (dict "@type" "Organization" "name" site.Params.brand) "mainEntityOfPage" .Permalink | jsonify | safeJS }}</script>{{ end }}
+<style>
+:root{--bg:{{ site.Params.bg }};--ac:{{ site.Params.accent }};--ac2:{{ site.Params.accent2 }}}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#222;line-height:1.65;background:#fafafa}
+a{color:var(--ac)}header{background:var(--bg);color:#fff;padding:1.2rem 1rem}header .in,main,footer .in{max-width:860px;margin:auto}
+header .brand{font-size:1.5rem;font-weight:700;color:#fff;text-decoration:none}header .tag{color:var(--ac2);opacity:.9;margin:.2rem 0}
+.bar{display:flex;flex-wrap:wrap;gap:.8rem;align-items:center;justify-content:space-between}
+.cta{background:var(--ac);color:#fff;padding:.55rem 1rem;border-radius:6px;text-decoration:none;font-weight:600;border:1px solid var(--ac2)}
+main{padding:1.5rem 1rem;background:#fff;min-height:60vh}.post{border-bottom:1px solid #eee;padding:1rem 0}.post h2{margin:.2rem 0}.meta{color:#777;font-size:.9rem}
+.banner{background:#fff3cd;border:1px solid #e0c36b;padding:.7rem 1rem;border-radius:6px}
+footer{background:var(--bg);color:#ddd;padding:1.5rem 1rem;font-size:.9rem}footer a{color:var(--ac2)}
+</style></head><body>
+<header><div class="in bar"><div><a class="brand" href="{{ site.Home.RelPermalink }}">{{ site.Title }}</a><div class="tag">{{ site.Params.tagline }}</div></div>
+<div><a class="cta" href="{{ site.Params.mainsite }}">Visit {{ site.Params.maindomain }} &rarr;</a> &nbsp;<a class="cta" href="tel:{{ replaceRE "[^0-9]" "" site.Params.phone }}">{{ site.Params.phone }}</a></div></div></header>
+<main>{{ block "main" . }}{{ end }}</main>
+<footer><div class="in"><strong>{{ site.Params.brand }}</strong> &middot; {{ site.Params.area }}<br>
+Call <a href="tel:{{ replaceRE "[^0-9]" "" site.Params.phone }}">{{ site.Params.phone }}</a> &middot; <a href="mailto:{{ site.Params.email }}">{{ site.Params.email }}</a> &middot; <a href="{{ site.Params.mainsite }}">{{ site.Params.maindomain }}</a><br>
+NMLS {{ site.Params.nmls }} &middot; <a href="https://www.nmlsconsumeraccess.org/">NMLS Consumer Access</a> &middot; Equal Housing Opportunity &middot; <a href="{{ "index.xml" | relURL }}">RSS</a><br>
+<small>This blog is for informational purposes only and is not a commitment to lend. Rates and programs subject to change.</small></div></footer>
+</body></html>
