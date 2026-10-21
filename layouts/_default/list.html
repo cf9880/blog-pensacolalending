@@ -1,2 +1,4 @@
 {{ define "main" }}{{ if .IsHome }}<h1>{{ site.Title }}</h1><p>{{ site.Params.description }}</p>{{ else }}<h1>{{ .Title }}</h1>{{ end }}
-{{ range (where site.RegularPages "Section" "posts").ByDate.Reverse }}<div class="post"><div class="meta">{{ .Date.Format "January 2, 2006" }}</div><h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2><p>{{ .Summary | plainify | truncate 220 }}</p></div>{{ end }}{{ end }}
+{{ range $p := (where site.RegularPages "Section" "posts").ByDate.Reverse }}<div class="post">
+{{ with partial "imgurl.html" (dict "page" $p "abs" false) }}<a href="{{ $p.RelPermalink }}"><img class="thumb" src="{{ . }}" alt="{{ default $p.Title $p.Params.image_alt }}" loading="lazy" decoding="async"></a>{{ end }}
+<div class="txt"><div class="meta">{{ $p.Date.Format "January 2, 2006" }}</div><h2><a href="{{ $p.RelPermalink }}">{{ $p.Title }}</a></h2><p>{{ $p.Summary | plainify | truncate 220 }}</p></div></div>{{ end }}{{ end }}

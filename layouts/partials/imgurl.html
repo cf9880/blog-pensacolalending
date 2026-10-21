@@ -1,0 +1,13 @@
+{{- /* Resolve front matter image to a URL. Context: dict "page" . "abs" bool */ -}}
+{{- $p := .page -}}{{- $img := $p.Params.image -}}{{- $out := "" -}}
+{{- with $img -}}
+  {{- if or (hasPrefix . "http://") (hasPrefix . "https://") (hasPrefix . "//") -}}{{- $out = . -}}
+  {{- else -}}
+    {{- with $p.Resources.GetMatch (strings.TrimPrefix "./" .) -}}{{- $out = cond $.abs .Permalink .RelPermalink -}}
+    {{- else -}}
+      {{- $clean := strings.TrimPrefix "/" (replaceRE "^(\\.\\./)+" "" .) -}}{{- $clean = strings.TrimPrefix "static/" $clean -}}
+      {{- $out = cond $.abs ($clean | absURL) ($clean | relURL) -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- return $out -}}

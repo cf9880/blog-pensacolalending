@@ -1,2 +1,5 @@
-{{ define "main" }}<article><h1>{{ .Title }}</h1><div class="meta">{{ .Date.Format "January 2, 2006" }}{{ with .Params.author }} &middot; {{ . }}{{ end }}</div>{{ .Content }}
+{{ define "main" }}<article><h1>{{ .Title }}</h1><div class="meta">{{ .Date.Format "January 2, 2006" }}{{ with .Params.author }} &middot; {{ . }}{{ end }}</div>
+{{ $src := partial "imgurl.html" (dict "page" . "abs" false) }}{{ $dup := false }}{{ with .Params.image }}{{ $dup = strings.Contains $.RawContent (path.Base .) }}{{ end }}
+{{ if and $src (not $dup) }}<img class="feat" src="{{ $src }}" alt="{{ default .Title .Params.image_alt }}" fetchpriority="high" decoding="async">{{ end }}
+{{ .Content }}
 <p><a class="cta" href="{{ site.Params.mainsite }}">Ready to talk? Visit {{ site.Params.maindomain }}</a></p></article>{{ end }}

@@ -9,11 +9,11 @@
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
 <meta property="og:title" content="{{ $title }}"><meta property="og:description" content="{{ $desc | truncate 200 }}">
 <meta property="og:url" content="{{ .Permalink }}"><meta property="og:site_name" content="{{ site.Title }}">
-{{ with .Params.image }}<meta property="og:image" content="{{ . | absURL }}">{{ end }}
+{{ $og := partial "imgurl.html" (dict "page" . "abs" true) }}{{ with $og }}<meta property="og:image" content="{{ . }}"><meta property="og:image:alt" content="{{ default $.Title $.Params.image_alt }}"><meta name="twitter:image" content="{{ . }}">{{ end }}
 <meta name="twitter:card" content="summary_large_image">
 {{ with .OutputFormats.Get "rss" }}<link rel="alternate" type="application/rss+xml" href="{{ .Permalink }}" title="{{ site.Title }}">{{ end }}
 <script type="application/ld+json">{{ dict "@context" "https://schema.org" "@type" (slice "MortgageBroker" "LocalBusiness") "name" site.Params.brand "url" site.Params.mainsite "telephone" site.Params.phone "email" site.Params.email "slogan" site.Params.tagline "areaServed" site.Params.area "identifier" (printf "NMLS %s" site.Params.nmls) "address" (dict "@type" "PostalAddress" "streetAddress" site.Params.street "addressLocality" site.Params.city "addressRegion" site.Params.region "addressCountry" "US") | jsonify | safeJS }}</script>
-{{ if .IsPage }}<script type="application/ld+json">{{ dict "@context" "https://schema.org" "@type" "BlogPosting" "headline" .Title "datePublished" (.Date.Format "2006-01-02") "dateModified" (.Lastmod.Format "2006-01-02") "author" (dict "@type" "Organization" "name" site.Params.brand) "mainEntityOfPage" .Permalink | jsonify | safeJS }}</script>{{ end }}
+{{ if .IsPage }}<script type="application/ld+json">{{ dict "@context" "https://schema.org" "@type" "BlogPosting" "headline" .Title "datePublished" (.Date.Format "2006-01-02") "dateModified" (.Lastmod.Format "2006-01-02") "author" (dict "@type" "Organization" "name" site.Params.brand) "mainEntityOfPage" .Permalink "image" (partial "imgurl.html" (dict "page" . "abs" true)) | jsonify | safeJS }}</script>{{ end }}
 <style>
 :root{--bg:{{ site.Params.bg }};--ac:{{ site.Params.accent }};--ac2:{{ site.Params.accent2 }}}
 *{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#222;line-height:1.65;background:#fafafa}
@@ -22,6 +22,10 @@ header .brand{font-size:1.5rem;font-weight:700;color:#fff;text-decoration:none}h
 .bar{display:flex;flex-wrap:wrap;gap:.8rem;align-items:center;justify-content:space-between}
 .cta{background:var(--ac);color:#fff;padding:.55rem 1rem;border-radius:6px;text-decoration:none;font-weight:600;border:1px solid var(--ac2)}
 main{padding:1.5rem 1rem;background:#fff;min-height:60vh}.post{border-bottom:1px solid #eee;padding:1rem 0}.post h2{margin:.2rem 0}.meta{color:#777;font-size:.9rem}
+.feat{width:100%;height:auto;max-height:480px;object-fit:cover;border-radius:8px;margin:.5rem 0 1rem;display:block}
+article img{max-width:100%;height:auto}
+.post{display:flex;gap:1rem;align-items:flex-start}.post .thumb{flex:0 0 180px;width:180px;aspect-ratio:16/10;object-fit:cover;border-radius:6px}.post .txt{flex:1;min-width:0}
+@media(max-width:600px){.post{flex-direction:column}.post .thumb{width:100%;flex-basis:auto}}
 .banner{background:#fff3cd;border:1px solid #e0c36b;padding:.7rem 1rem;border-radius:6px}
 footer{background:var(--bg);color:#ddd;padding:1.5rem 1rem;font-size:.9rem}footer a{color:var(--ac2)}
 </style></head><body>
