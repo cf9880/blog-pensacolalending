@@ -1,13 +1,13 @@
 ---
-title: "Welcome to the Pensacola Lending Blog (PLACEHOLDER)"
+title: "Welcome to the Pensacola Lending Blog"
 date: 2026-10-18
-description: "Placeholder welcome post for the Pensacola Lending blog. Replace with a real article."
-tags: ["placeholder"]
+description: "Welcome to the Pensacola Lending blog: mortgage tips, loan program guides and local market insights for Pensacola & Northwest Florida."
+tags: ["welcome"]
+slug: "welcome"
+aliases: ["/posts/welcome-placeholder/"]
 author: "Coastal Funding Corporation — Pensacola"
 draft: false
 ---
-
-<div class="banner"><strong>PLACEHOLDER POST:</strong> this is a temporary welcome post. Replace or delete it when the first real article is published.</div>
 
 Welcome to the Pensacola Lending blog. Here we'll share mortgage tips, loan program guides and local market insights for Pensacola & Northwest Florida.
 
