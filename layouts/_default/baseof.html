@@ -28,9 +28,27 @@ article img{max-width:100%;height:auto}
 @media(max-width:600px){.post{flex-direction:column}.post .thumb{width:100%;flex-basis:auto}}
 .banner{background:#fff3cd;border:1px solid #e0c36b;padding:.7rem 1rem;border-radius:6px}
 footer{background:var(--bg);color:#ddd;padding:1.5rem 1rem;font-size:.9rem}footer a{color:var(--ac2)}
+html,body{overflow-x:hidden;max-width:100%}
+.bar>div{min-width:0}.ctas{display:flex;gap:.5rem;flex-wrap:wrap}.cta{display:inline-block;white-space:nowrap}
+main,article{overflow-wrap:anywhere;word-break:break-word}
+main img,main video,main iframe{max-width:100%;height:auto}
+main table{display:block;max-width:100%;overflow-x:auto;border-collapse:collapse}main td,main th{border:1px solid #ddd;padding:.35rem .5rem}
+pre{max-width:100%;overflow-x:auto}
+@media(max-width:640px){
+ header{padding:.9rem .75rem}header .brand{font-size:1.2rem}header .tag{font-size:.85rem}
+ .bar{flex-direction:column;align-items:stretch;gap:.6rem}
+ .ctas{flex-wrap:nowrap;width:100%}.ctas .cta{flex:1 1 auto;text-align:center;padding:.5rem .45rem;font-size:.85rem;min-width:0}
+ .ctas .cta:first-child{overflow:hidden;text-overflow:ellipsis}.ctas .call{flex:0 0 auto}
+ main{padding:1rem .75rem}h1{font-size:1.5rem;line-height:1.25}footer{padding:1.2rem .75rem}
+}
+@media(max-width:350px){.ctas .cta{font-size:.78rem;padding:.45rem .35rem}}
+.sm{display:none}@media(max-width:640px){.lg{display:none}.sm{display:inline}}
+article .cta{white-space:normal;max-width:100%;text-align:center}
+.post>a:has(.thumb){flex:0 0 180px;display:block}.post .thumb{width:100%;display:block}
+@media(max-width:600px){.post>a:has(.thumb){flex:none;width:100%}}
 </style></head><body>
 <header><div class="in bar"><div><a class="brand" href="{{ site.Home.RelPermalink }}">{{ site.Title }}</a><div class="tag">{{ site.Params.tagline }}</div></div>
-<div><a class="cta" href="{{ site.Params.mainsite }}">Visit {{ site.Params.maindomain }} &rarr;</a> &nbsp;<a class="cta" href="tel:{{ replaceRE "[^0-9]" "" site.Params.phone }}">{{ site.Params.phone }}</a></div></div></header>
+<div class="ctas"><a class="cta" href="{{ site.Params.mainsite }}"><span class="lg">Visit {{ site.Params.maindomain }}</span><span class="sm">Main site</span> &rarr;</a><a class="cta call" href="tel:{{ replaceRE "[^0-9]" "" site.Params.phone }}" aria-label="Call {{ site.Params.phone }}">&#128222;&nbsp;{{ site.Params.phone }}</a></div></div></header>
 <main>{{ block "main" . }}{{ end }}</main>
 <footer><div class="in"><strong>{{ site.Params.brand }}</strong> &middot; {{ site.Params.area }}<br>
 Call <a href="tel:{{ replaceRE "[^0-9]" "" site.Params.phone }}">{{ site.Params.phone }}</a> &middot; <a href="mailto:{{ site.Params.email }}">{{ site.Params.email }}</a> &middot; <a href="{{ site.Params.mainsite }}">{{ site.Params.maindomain }}</a><br>
