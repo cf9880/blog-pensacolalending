@@ -1,7 +1,7 @@
 ---
 title: "First-Time Home Buyer Pensacola: Loans & Down Payment Help"
 date: 2026-10-21T06:30:00-05:00
-lastmod: 2026-10-21T06:30:00-05:00
+lastmod: 2026-10-21T07:30:00-05:00
 description: "First-time home buyer in Pensacola? Compare FHA, conventional, VA and USDA loans, local down payment help, 2026 limits and steps to get your first keys."
 tags: ["first-time home buyer pensacola", "down payment assistance escambia county", "fha loan pensacola", "usda loan", "historic pensacola"]
 author: "Coastal Funding Corporation — Pensacola"
@@ -11,7 +11,9 @@ faq:
   - q: "How much do I need to buy my first home in Pensacola?"
     a: "It depends on the loan. Conventional loans can start at 3% down for qualified first-time buyers, FHA at 3.5%, and VA and USDA at $0 down for eligible buyers. You'll also need money for closing costs, though sellers or assistance programs may help."
   - q: "Is there down payment assistance in Escambia County?"
-    a: "Yes. Escambia County's SHIP-funded Homebuyer Assistance Program and the Escambia County Housing Finance Authority both offer help for eligible buyers. Funds, income limits, and lender requirements apply."
+    a: "Yes. Escambia County's SHIP-funded Homebuyer Assistance Program and the Escambia County Housing Finance Authority run public programs for eligible buyers, which must be used through their own approved lenders. Coastal Funding is not an approved lender for those two programs, but it offers down payment assistance options through several of its lender partners. Contact us to see which options may fit; eligibility is never guaranteed."
+  - q: "Does Coastal Funding offer down payment assistance?"
+    a: "Yes, through its lender partners. Coastal Funding works with several lenders that offer down payment assistance options. Terms and eligibility vary, and approval is never guaranteed, so call (850) 725-6500 to ask which options may fit."
   - q: "Who counts as a first-time home buyer?"
     a: "For many programs, it's anyone who hasn't owned a primary home in the past three years. That means you may qualify even if you owned a home years ago."
   - q: "What credit score do I need to buy a house in Pensacola?"
@@ -21,7 +23,7 @@ faq:
 draft: false
 ---
 
-**Buying your first home in Pensacola is more doable than many renters think.** Qualified buyers can put as little as **3% down** with a conventional loan, **3.5% down** with FHA, or **$0 down** with VA or USDA. Escambia County and the Escambia County Housing Finance Authority also offer **down payment and closing cost help** for eligible buyers.
+**Buying your first home in Pensacola is more doable than many renters think.** Qualified buyers can put as little as **3% down** with a conventional loan, **3.5% down** with FHA, or **$0 down** with VA or USDA. Down payment assistance is out there too: Coastal Funding offers **down payment assistance options through several of its lender partners**, and Escambia County and the Escambia County Housing Finance Authority run their own public programs.
 
 This guide covers loan options, local assistance, and the step-by-step path from renter to homeowner in the City of Five Flags.
 
@@ -29,7 +31,7 @@ This guide covers loan options, local assistance, and the step-by-step path from
 
 - **Low down payments:** 3% conventional, 3.5% FHA, $0 VA and USDA for eligible buyers.
 - **2026 limits:** $832,750 conforming and $541,287 FHA (one-unit, Escambia County).
-- **Local help:** Escambia County's SHIP program and ECHFA's Classic DPA of up to $10,000.
+- **Down payment help:** Coastal Funding offers assistance options through several lender partners. Separate public programs (Escambia County SHIP and ECHFA) work only through their own approved lenders.
 - **"First-time" often means** no ownership of a primary home in the past three years.
 - **Prices:** Pensacola's median sale price was $319,900 in September 2026 (PAR).
 
@@ -66,7 +68,11 @@ Yes. Two local programs to know (always confirm current funding and rules):
 
 **Escambia County Housing Finance Authority (ECHFA).** ECHFA's Classic DPA offers up to **$10,000** as a 0%, 30-year deferred second mortgage. It isn't forgiven; it's repaid when you sell, refinance, or pay off the first mortgage. For Escambia and Santa Rosa, 2026 limits include household income up to **$102,694** (1–2 people) or **$118,099** (3+) in non-targeted areas, a **$566,354** purchase price cap (higher in targeted areas), and a **640** minimum credit score. Qualified veterans and buyers in targeted areas don't need to be first-time buyers. ([ECHFA](https://www.escambiahfa.com/participating-counties/escambia))
 
-**Important:** these programs work only through approved or participating lenders. Ask us which programs can be paired with your loan before you apply.
+**Important:** these two public programs must be used through their own approved or participating lenders. **Coastal Funding is not an approved lender for the Escambia County or ECHFA programs.**
+
+## Does Coastal Funding offer down payment assistance?
+
+Yes, through its lender partners. As a mortgage broker, Coastal Funding works with several lenders that offer **down payment assistance options**. Terms, income limits, credit requirements, and repayment rules vary by lender and program, and not every buyer will qualify. Call **(850) 725-6500** to ask which options may fit your situation.
 
 ## What are the steps to buy your first Pensacola home?
 
@@ -93,7 +99,10 @@ Every budget is different, but first-time buyers often explore areas like Warrin
 Conventional can start at 3% down, FHA at 3.5%, and VA or USDA at $0 for eligible buyers, plus closing costs.
 
 **Is there down payment assistance in Escambia County?**
-Yes. Escambia County's SHIP program and ECHFA offer help for eligible buyers, subject to funding and limits.
+Yes. Escambia County's SHIP program and ECHFA run public programs through their own approved lenders. Coastal Funding isn't one of them, but it offers down payment assistance options through several lender partners. Eligibility isn't guaranteed.
+
+**Does Coastal Funding offer down payment assistance?**
+Yes, through several of its lender partners. Terms and eligibility vary, so call (850) 725-6500 to ask about options.
 
 **Who counts as a first-time home buyer?**
 For many programs, anyone who hasn't owned a primary home in the past three years.
@@ -106,7 +115,7 @@ Preapproval takes a day or two. Many purchase loans close in about 30 to 45 days
 
 ## Let's get you those first keys
 
-Call **(850) 725-6500** or visit [www.pensacolalending.com](https://www.pensacolalending.com/). We'll compare first-time buyer loans from multiple lenders and help you understand which assistance options fit.
+Call **(850) 725-6500** or visit [www.pensacolalending.com](https://www.pensacolalending.com/). We'll compare first-time buyer loans from multiple lenders, including down payment assistance options offered through our lender partners.
 
 **About the author:** Coastal Funding Corporation (NMLS 103035) is a mortgage broker at 534 S. Navy Blvd., Pensacola, FL 32507, helping first-time and move-up buyers in Florida, South Carolina, and Tennessee.
 
