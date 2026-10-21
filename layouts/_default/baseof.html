@@ -10,10 +10,17 @@
 <meta property="og:title" content="{{ $title }}"><meta property="og:description" content="{{ $desc | truncate 200 }}">
 <meta property="og:url" content="{{ .Permalink }}"><meta property="og:site_name" content="{{ site.Title }}">
 {{ $og := partial "imgurl.html" (dict "page" . "abs" true) }}{{ with $og }}<meta property="og:image" content="{{ . }}"><meta property="og:image:alt" content="{{ default $.Title $.Params.image_alt }}"><meta name="twitter:image" content="{{ . }}">{{ end }}
-<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{{ $title }}"><meta name="twitter:description" content="{{ $desc | truncate 200 }}">
 {{ with .OutputFormats.Get "rss" }}<link rel="alternate" type="application/rss+xml" href="{{ .Permalink }}" title="{{ site.Title }}">{{ end }}
-<script type="application/ld+json">{{ dict "@context" "https://schema.org" "@type" (slice "MortgageBroker" "LocalBusiness") "name" site.Params.brand "url" site.Params.mainsite "telephone" site.Params.phone "email" site.Params.email "slogan" site.Params.tagline "areaServed" site.Params.area "identifier" (printf "NMLS %s" site.Params.nmls) "address" (dict "@type" "PostalAddress" "streetAddress" site.Params.street "addressLocality" site.Params.city "addressRegion" site.Params.region "addressCountry" "US") | jsonify | safeJS }}</script>
-{{ if .IsPage }}<script type="application/ld+json">{{ dict "@context" "https://schema.org" "@type" "BlogPosting" "headline" .Title "datePublished" (.Date.Format "2006-01-02") "dateModified" (.Lastmod.Format "2006-01-02") "author" (dict "@type" "Organization" "name" site.Params.brand) "mainEntityOfPage" .Permalink "image" (partial "imgurl.html" (dict "page" . "abs" true)) | jsonify | safeJS }}</script>{{ end }}
+{{ $addr := dict "@type" "PostalAddress" "streetAddress" site.Params.street "addressLocality" site.Params.city "addressRegion" site.Params.region "postalCode" (default "" site.Params.zip) "addressCountry" "US" }}
+{{ $org := dict "@context" "https://schema.org" "@type" (slice "MortgageBroker" "LocalBusiness") "name" site.Params.brand "legalName" (default site.Params.brand site.Params.publisher) "url" site.Params.mainsite "email" site.Params.email "slogan" site.Params.tagline "areaServed" site.Params.area "identifier" (printf "NMLS %s" site.Params.nmls) "address" $addr }}
+{{ with site.Params.phone }}{{ $org = merge $org (dict "telephone" .) }}{{ end }}
+<script type="application/ld+json">{{ $org | jsonify | safeJS }}</script>
+{{ if .IsPage }}{{ $authors := slice }}{{ range .Params.authors_ld }}{{ $a := dict "@type" "Person" "name" .name }}{{ with .jobTitle }}{{ $a = merge $a (dict "jobTitle" .) }}{{ end }}{{ with .worksFor }}{{ $a = merge $a (dict "worksFor" (dict "@type" "Organization" "name" .)) }}{{ end }}{{ $authors = $authors | append $a }}{{ end }}
+{{ if not $authors }}{{ $authors = slice (dict "@type" "Organization" "name" (default site.Params.brand .Params.author)) }}{{ end }}
+{{ $pub := dict "@type" "Organization" "name" (default site.Params.brand site.Params.publisher) "url" site.Params.mainsite "identifier" (printf "NMLS %s" site.Params.nmls) "address" $addr }}
+<script type="application/ld+json">{{ dict "@context" "https://schema.org" "@type" "BlogPosting" "headline" .Title "description" $desc "datePublished" (.Date.Format "2006-01-02T15:04:05-07:00") "dateModified" (.Lastmod.Format "2006-01-02T15:04:05-07:00") "author" $authors "publisher" $pub "mainEntityOfPage" .Permalink "image" (partial "imgurl.html" (dict "page" . "abs" true)) "keywords" (delimit (default slice .Params.tags) ", ") | jsonify | safeJS }}</script>
+{{ with .Params.faq }}{{ $qs := slice }}{{ range . }}{{ $qs = $qs | append (dict "@type" "Question" "name" .q "acceptedAnswer" (dict "@type" "Answer" "text" .a)) }}{{ end }}<script type="application/ld+json">{{ dict "@context" "https://schema.org" "@type" "FAQPage" "mainEntity" $qs | jsonify | safeJS }}</script>{{ end }}{{ end }}
 <style>
 :root{--bg:{{ site.Params.bg }};--ac:{{ site.Params.accent }};--ac2:{{ site.Params.accent2 }}}
 *{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#222;line-height:1.65;background:#fafafa}
@@ -48,10 +55,10 @@ article .cta{white-space:normal;max-width:100%;text-align:center}
 @media(max-width:600px){.post>a:has(.thumb){flex:none;width:100%}}
 </style></head><body>
 <header><div class="in bar"><div><a class="brand" href="{{ site.Home.RelPermalink }}">{{ site.Title }}</a><div class="tag">{{ site.Params.tagline }}</div></div>
-<div class="ctas"><a class="cta" href="{{ site.Params.mainsite }}"><span class="lg">Visit {{ site.Params.maindomain }}</span><span class="sm">Main site</span> &rarr;</a><a class="cta call" href="tel:{{ replaceRE "[^0-9]" "" site.Params.phone }}" aria-label="Call {{ site.Params.phone }}">&#128222;&nbsp;{{ site.Params.phone }}</a></div></div></header>
+<div class="ctas"><a class="cta" href="{{ site.Params.mainsite }}"><span class="lg">Visit {{ site.Params.maindomain }}</span><span class="sm">Main site</span> &rarr;</a>{{ with site.Params.phone }}<a class="cta call" href="tel:{{ replaceRE "[^0-9]" "" . }}" aria-label="Call {{ . }}">&#128222;&nbsp;{{ . }}</a>{{ end }}</div></div></header>
 <main>{{ block "main" . }}{{ end }}</main>
 <footer><div class="in"><strong>{{ site.Params.brand }}</strong> &middot; {{ site.Params.area }}<br>
-Call <a href="tel:{{ replaceRE "[^0-9]" "" site.Params.phone }}">{{ site.Params.phone }}</a> &middot; <a href="mailto:{{ site.Params.email }}">{{ site.Params.email }}</a> &middot; <a href="{{ site.Params.mainsite }}">{{ site.Params.maindomain }}</a><br>
-NMLS {{ site.Params.nmls }} &middot; <a href="https://www.nmlsconsumeraccess.org/">NMLS Consumer Access</a> &middot; Equal Housing Opportunity &middot; <a href="{{ "index.xml" | relURL }}">RSS</a><br>
+{{ with site.Params.phone }}Call <a href="tel:{{ replaceRE "[^0-9]" "" . }}">{{ . }}</a> &middot; {{ end }}<a href="mailto:{{ site.Params.email }}">{{ site.Params.email }}</a> &middot; <a href="{{ site.Params.mainsite }}">{{ site.Params.maindomain }}</a><br>
+{{ default site.Params.brand site.Params.publisher }} NMLS {{ site.Params.nmls }}{{ with site.Params.nmls_personal }} &middot; {{ . }}{{ end }} &middot; <a href="https://www.nmlsconsumeraccess.org/">NMLS Consumer Access</a> &middot; Equal Housing Opportunity &middot; <a href="{{ "index.xml" | relURL }}">RSS</a><br>
 <small>This blog is for informational purposes only and is not a commitment to lend. Rates and programs subject to change.</small></div></footer>
 </body></html>

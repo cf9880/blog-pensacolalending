@@ -1,4 +1,4 @@
-{{ define "main" }}<article><h1>{{ .Title }}</h1><div class="meta">{{ .Date.Format "January 2, 2006" }}{{ with .Params.author }} &middot; {{ . }}{{ end }}</div>
+{{ define "main" }}<article><h1>{{ .Title }}</h1><div class="meta">{{ .Date.Format "January 2, 2006" }}{{ if ne (.Lastmod.Format "2006-01-02") (.Date.Format "2006-01-02") }} &middot; Updated {{ .Lastmod.Format "January 2, 2006" }}{{ end }}{{ with .Params.author }} &middot; By {{ . }}{{ end }}</div>
 {{ $src := partial "imgurl.html" (dict "page" . "abs" false) }}{{ $dup := false }}{{ with .Params.image }}{{ $dup = strings.Contains $.RawContent (path.Base .) }}{{ end }}
 {{ if and $src (not $dup) }}<img class="feat" src="{{ $src }}" alt="{{ default .Title .Params.image_alt }}" fetchpriority="high" decoding="async">{{ end }}
 {{ .Content }}
