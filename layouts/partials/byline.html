@@ -1,0 +1,4 @@
+{{- /* Post byline: " · By <author>" linked to the matching /authors/ page. Falls back to the site's business name. */ -}}
+{{- $name := default (default site.Params.brand site.Params.publisher) .Params.author -}}
+{{- $ap := partial "author-page.html" $name -}}
+{{ " " }}&middot; By {{ with $ap }}<a href="{{ .RelPermalink }}" rel="author">{{ $name }}</a>{{ else }}{{ $name }}{{ end }}

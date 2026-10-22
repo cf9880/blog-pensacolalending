@@ -1,0 +1,7 @@
+{{- /* The business behind the blog (publisher / worksFor). */ -}}
+{{- $addr := dict "@type" "PostalAddress" "streetAddress" "534 S. Navy Blvd" "addressLocality" "Pensacola" "addressRegion" "FL" "postalCode" "32507" "addressCountry" "US" -}}
+{{- $org := dict "@type" (slice "Organization" "MortgageBroker") "@id" (printf "%s#org" site.Params.mainsite) "name" (default site.Params.brand site.Params.publisher) "url" site.Params.mainsite "identifier" (printf "NMLS %s" site.Params.nmls) "address" $addr -}}
+{{- with site.Params.phone -}}{{- $org = merge $org (dict "telephone" .) -}}{{- end -}}
+{{- with site.Params.email -}}{{- $org = merge $org (dict "email" .) -}}{{- end -}}
+{{- with site.Params.logo -}}{{- $org = merge $org (dict "logo" (dict "@type" "ImageObject" "url" (. | absURL))) -}}{{- end -}}
+{{- return $org -}}

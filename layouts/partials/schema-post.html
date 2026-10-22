@@ -1,0 +1,30 @@
+{{- /* Post JSON-LD: BlogPosting + BreadcrumbList + optional FAQPage (front matter faq: [{q, a}]). */ -}}
+{{- $org := partial "org.html" . -}}
+{{- $img := partial "imgurl.html" (dict "page" . "abs" true) -}}
+{{- $name := default (default site.Params.brand site.Params.publisher) .Params.author -}}
+{{- $authors := slice -}}
+{{- range .Params.authors_ld -}}
+  {{- $a := dict "@type" "Person" "name" .name -}}
+  {{- with partial "author-page.html" .name -}}{{- $a = merge $a (dict "url" .Permalink "@id" (printf "%s#author" .Permalink)) -}}{{- end -}}
+  {{- with .jobTitle -}}{{- $a = merge $a (dict "jobTitle" .) -}}{{- end -}}
+  {{- with .worksFor -}}{{- if eq . (default site.Params.brand site.Params.publisher) -}}{{- $a = merge $a (dict "worksFor" $org) -}}{{- else -}}{{- $a = merge $a (dict "worksFor" (dict "@type" "Organization" "name" .)) -}}{{- end -}}{{- end -}}
+  {{- $authors = $authors | append $a -}}
+{{- end -}}
+{{- if not $authors -}}
+  {{- with partial "author-page.html" $name -}}{{- $authors = slice (partial "author-ld.html" .) -}}
+  {{- else -}}{{- $authors = slice (dict "@type" "Organization" "name" $name "url" site.Params.mainsite) -}}{{- end -}}
+{{- end -}}
+{{- $desc := .Description | default (.Summary | plainify) -}}
+{{- $post := dict "@context" "https://schema.org" "@type" "BlogPosting" "headline" .Title "description" $desc "datePublished" (.Date.Format "2006-01-02T15:04:05-07:00") "dateModified" (.Lastmod.Format "2006-01-02T15:04:05-07:00") "author" $authors "publisher" $org "mainEntityOfPage" (dict "@type" "WebPage" "@id" .Permalink) "url" .Permalink "inLanguage" "en-US" -}}
+{{- with $img -}}{{- $post = merge $post (dict "image" (slice .)) -}}{{- end -}}
+{{- with .Params.tags -}}{{- $post = merge $post (dict "keywords" (delimit . ", ")) -}}{{- end -}}
+<script type="application/ld+json">{{ $post | jsonify | safeJS }}</script>
+{{- $crumbs := slice (dict "@type" "ListItem" "position" 1 "name" site.Title "item" site.Home.Permalink) -}}
+{{- with .Parent -}}{{- if not .IsHome -}}{{- $crumbs = $crumbs | append (dict "@type" "ListItem" "position" 2 "name" .Title "item" .Permalink) -}}{{- end -}}{{- end -}}
+{{- $crumbs = $crumbs | append (dict "@type" "ListItem" "position" (add (len $crumbs) 1) "name" .Title "item" .Permalink) -}}
+<script type="application/ld+json">{{ dict "@context" "https://schema.org" "@type" "BreadcrumbList" "itemListElement" $crumbs | jsonify | safeJS }}</script>
+{{- with .Params.faq -}}
+{{- $qs := slice -}}
+{{- range . -}}{{- $qs = $qs | append (dict "@type" "Question" "name" .q "acceptedAnswer" (dict "@type" "Answer" "text" (.a | markdownify | plainify | htmlUnescape))) -}}{{- end -}}
+<script type="application/ld+json">{{ dict "@context" "https://schema.org" "@type" "FAQPage" "mainEntity" $qs | jsonify | safeJS }}</script>
+{{- end -}}

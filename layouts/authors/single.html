@@ -1,0 +1,5 @@
+{{ define "main" }}<article><h1>{{ .Title }}</h1>{{ with .Params.jobTitle }}<div class="meta">{{ . }}{{ with $.Params.worksFor }} &middot; {{ . }}{{ end }}</div>{{ end }}
+{{ .Content }}
+{{ $name := .Params.name }}{{ $posts := slice }}{{ range (where site.RegularPages "Section" "posts").ByDate.Reverse }}{{ $match := eq (default (default site.Params.brand site.Params.publisher) .Params.author) $name }}{{ range .Params.authors_ld }}{{ if eq .name $name }}{{ $match = true }}{{ end }}{{ end }}{{ if $match }}{{ $posts = $posts | append . }}{{ end }}{{ end }}
+{{ with $posts }}<h2>Posts</h2><ul>{{ range . }}<li><a href="{{ .RelPermalink }}">{{ .Title }}</a> <span class="meta">{{ .Date.Format "January 2, 2006" }}</span></li>{{ end }}</ul>{{ end }}
+<p><a class="cta" href="{{ site.Params.mainsite }}">Visit {{ site.Params.maindomain }}</a></p></article>{{ end }}

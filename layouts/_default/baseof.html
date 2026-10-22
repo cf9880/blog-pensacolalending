@@ -16,11 +16,7 @@
 {{ $org := dict "@context" "https://schema.org" "@type" (slice "MortgageBroker" "LocalBusiness") "name" site.Params.brand "legalName" (default site.Params.brand site.Params.publisher) "url" site.Params.mainsite "email" site.Params.email "slogan" site.Params.tagline "areaServed" site.Params.area "identifier" (printf "NMLS %s" site.Params.nmls) "address" $addr }}
 {{ with site.Params.phone }}{{ $org = merge $org (dict "telephone" .) }}{{ end }}
 <script type="application/ld+json">{{ $org | jsonify | safeJS }}</script>
-{{ if .IsPage }}{{ $authors := slice }}{{ range .Params.authors_ld }}{{ $a := dict "@type" "Person" "name" .name }}{{ with .jobTitle }}{{ $a = merge $a (dict "jobTitle" .) }}{{ end }}{{ with .worksFor }}{{ $a = merge $a (dict "worksFor" (dict "@type" "Organization" "name" .)) }}{{ end }}{{ $authors = $authors | append $a }}{{ end }}
-{{ if not $authors }}{{ $authors = slice (dict "@type" "Organization" "name" (default site.Params.brand .Params.author)) }}{{ end }}
-{{ $pub := dict "@type" "Organization" "name" (default site.Params.brand site.Params.publisher) "url" site.Params.mainsite "identifier" (printf "NMLS %s" site.Params.nmls) "address" $addr }}
-<script type="application/ld+json">{{ dict "@context" "https://schema.org" "@type" "BlogPosting" "headline" .Title "description" $desc "datePublished" (.Date.Format "2006-01-02T15:04:05-07:00") "dateModified" (.Lastmod.Format "2006-01-02T15:04:05-07:00") "author" $authors "publisher" $pub "mainEntityOfPage" .Permalink "image" (partial "imgurl.html" (dict "page" . "abs" true)) "keywords" (delimit (default slice .Params.tags) ", ") | jsonify | safeJS }}</script>
-{{ with .Params.faq }}{{ $qs := slice }}{{ range . }}{{ $qs = $qs | append (dict "@type" "Question" "name" .q "acceptedAnswer" (dict "@type" "Answer" "text" .a)) }}{{ end }}<script type="application/ld+json">{{ dict "@context" "https://schema.org" "@type" "FAQPage" "mainEntity" $qs | jsonify | safeJS }}</script>{{ end }}{{ end }}
+{{ if and .IsPage (eq .Section "posts") }}{{ partial "schema-post.html" . }}{{ else if and .IsPage (eq .Section "authors") }}{{ partial "schema-author.html" . }}{{ end }}
 <style>
 :root{--bg:{{ site.Params.bg }};--ac:{{ site.Params.accent }};--ac2:{{ site.Params.accent2 }}}
 *{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#222;line-height:1.65;background:#fafafa}

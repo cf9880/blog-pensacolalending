@@ -1,0 +1,3 @@
+{{- /* Author page JSON-LD: ProfilePage whose mainEntity is the Person (or Organization), plus BreadcrumbList. */ -}}
+<script type="application/ld+json">{{ dict "@context" "https://schema.org" "@type" "ProfilePage" "url" .Permalink "name" .Title "mainEntity" (partial "author-ld.html" .) | jsonify | safeJS }}</script>
+<script type="application/ld+json">{{ dict "@context" "https://schema.org" "@type" "BreadcrumbList" "itemListElement" (slice (dict "@type" "ListItem" "position" 1 "name" site.Title "item" site.Home.Permalink) (dict "@type" "ListItem" "position" 2 "name" "Authors" "item" ("authors/" | absURL)) (dict "@type" "ListItem" "position" 3 "name" .Title "item" .Permalink)) | jsonify | safeJS }}</script>

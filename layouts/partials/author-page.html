@@ -1,0 +1,4 @@
+{{- /* Returns the /authors/ page whose front matter `name` matches the given name, or nil. Context: name string */ -}}
+{{- $out := false -}}
+{{- with site.GetPage "/authors" -}}{{- range .Pages -}}{{- if eq .Params.name $ -}}{{- $out = . -}}{{- end -}}{{- end -}}{{- end -}}
+{{- return $out -}}

@@ -1,0 +1,7 @@
+{{- /* Visible FAQ from front matter faq: [{q, a}]. Skipped if the post body already has its own FAQ heading (avoids showing it twice). */ -}}
+{{- with .Params.faq -}}{{- if not (strings.Contains $.RawContent "Frequently Asked Questions") -}}
+<section class="faq" id="faq"><h2>Frequently Asked Questions</h2>
+{{ range . }}<h3>{{ .q }}</h3>
+<p>{{ .a | markdownify }}</p>
+{{ end }}</section>
+{{- end -}}{{- end -}}

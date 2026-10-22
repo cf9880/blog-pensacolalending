@@ -1,0 +1,25 @@
+{{- /* JSON-LD entity for an author page. Context: author page.
+     Front matter: name (must equal posts' `author`), entity: Person (default) | Organization,
+     jobTitle, worksFor, identifier, members (list of names, for team pages). */ -}}
+{{- $org := partial "org.html" . -}}
+{{- $pubname := default site.Params.brand site.Params.publisher -}}
+{{- $e := dict -}}
+{{- if eq .Params.name $pubname -}}
+  {{- $e = merge $org (dict "description" (default "" .Description)) -}}
+{{- else if eq (default "Person" .Params.entity) "Organization" -}}
+  {{- $e = dict "@type" "Organization" "name" .Params.name "url" .Permalink "@id" (printf "%s#author" .Permalink) -}}
+  {{- with .Params.members -}}
+    {{- $m := slice -}}{{- range . -}}{{- $p := dict "@type" "Person" "name" . -}}{{- with partial "author-page.html" . -}}{{- $p = merge $p (dict "url" .Permalink "@id" (printf "%s#author" .Permalink)) -}}{{- end -}}{{- $m = $m | append $p -}}{{- end -}}
+    {{- $e = merge $e (dict "member" $m) -}}
+  {{- else -}}{{- $e = merge $e (dict "parentOrganization" $org) -}}{{- end -}}
+  {{- with .Description -}}{{- $e = merge $e (dict "description" .) -}}{{- end -}}
+{{- else -}}
+  {{- $e = dict "@type" "Person" "name" .Params.name "url" .Permalink "@id" (printf "%s#author" .Permalink) -}}
+  {{- with .Description -}}{{- $e = merge $e (dict "description" .) -}}{{- end -}}
+  {{- with .Params.jobTitle -}}{{- $e = merge $e (dict "jobTitle" .) -}}{{- end -}}
+  {{- with .Params.worksFor -}}
+    {{- if eq . $pubname -}}{{- $e = merge $e (dict "worksFor" $org) -}}{{- else -}}{{- $e = merge $e (dict "worksFor" (dict "@type" "Organization" "name" .)) -}}{{- end -}}
+  {{- else -}}{{- $e = merge $e (dict "worksFor" $org) -}}{{- end -}}
+  {{- with .Params.identifier -}}{{- $e = merge $e (dict "identifier" .) -}}{{- end -}}
+{{- end -}}
+{{- return $e -}}
