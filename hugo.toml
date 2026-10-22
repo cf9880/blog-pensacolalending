@@ -1,5 +1,5 @@
-# To switch to the custom domain: change baseURL to "https://blog.pensacolalending.com/" and add static/CNAME containing "blog.pensacolalending.com"
-baseURL = "https://cf9880.github.io/blog-pensacolalending/"
+# Custom domain: blog.pensacolalending.com (static/CNAME)
+baseURL = "https://blog.pensacolalending.com/"
 languageCode = "en-us"
 title = "Pensacola Lending Blog"
 enableRobotsTXT = true
