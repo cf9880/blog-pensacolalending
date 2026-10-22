@@ -5,6 +5,7 @@
 {{ $desc := cond .IsHome site.Params.description (default site.Params.description (.Description | default .Summary | plainify)) }}
 <title>{{ $title }}</title>
 <meta name="description" content="{{ $desc | truncate 160 }}">
+<link rel="icon" href="{{ "favicon.ico" | relURL }}" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="{{ "favicon-32x32.png" | relURL }}"><link rel="apple-touch-icon" href="{{ "apple-touch-icon.png" | relURL }}">
 <link rel="canonical" href="{{ .Permalink }}">
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
 <meta property="og:title" content="{{ $title }}"><meta property="og:description" content="{{ $desc | truncate 200 }}">
@@ -15,6 +16,7 @@
 {{ $addr := dict "@type" "PostalAddress" "streetAddress" site.Params.street "addressLocality" site.Params.city "addressRegion" site.Params.region "postalCode" (default "" site.Params.zip) "addressCountry" "US" }}
 {{ $org := dict "@context" "https://schema.org" "@type" (slice "MortgageBroker" "LocalBusiness") "name" site.Params.brand "legalName" (default site.Params.brand site.Params.publisher) "url" site.Params.mainsite "email" site.Params.email "slogan" site.Params.tagline "areaServed" site.Params.area "identifier" (printf "NMLS %s" site.Params.nmls) "address" $addr }}
 {{ with site.Params.phone }}{{ $org = merge $org (dict "telephone" .) }}{{ end }}
+{{ with site.Params.logo }}{{ $org = merge $org (dict "logo" (dict "@type" "ImageObject" "url" (. | absURL) "width" 512 "height" 512)) }}{{ end }}
 <script type="application/ld+json">{{ $org | jsonify | safeJS }}</script>
 {{ if and .IsPage (eq .Section "posts") }}{{ partial "schema-post.html" . }}{{ else if and .IsPage (eq .Section "authors") }}{{ partial "schema-author.html" . }}{{ end }}
 <style>

@@ -8,6 +8,7 @@ enableRobotsTXT = true
 [sitemap]
   changefreq = "weekly"
 [params]
+logo = "images/logo.png"
   description = "Pensacola home buying and mortgage insights: Conventional, FHA, VA, USDA, Jumbo and HELOC loans in Northwest Florida."
   brand = "Coastal Funding Corporation — Pensacola"
   tagline = "We Make Mortgages Simple..."
